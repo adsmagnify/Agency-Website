@@ -1,6 +1,6 @@
 .btn-wrapper {
-  --rad: 32px;
-  --color-wrapper-border: #fff;
+  --rad: 9999px;
+  --color-wrapper-border: #FFC619;
   --color-btn-bg: #f00;
   --color-btn-text: #000;
   --color-btn-text-shadow: #fff;
@@ -16,11 +16,11 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  overflow: clip;
-  overflow-clip-margin: 4px;
 
+  overflow: hidden;
   border: 2px solid var(--color-wrapper-border);
   border-radius: var(--rad);
+  box-shadow: 0 0 12px rgba(255, 198, 25, 0.35), 0 4px 20px rgba(0, 74, 173, 0.25);
 
   font-family: "Inter", var(--font-heading), sans-serif;
   font-size: 0.82rem;
