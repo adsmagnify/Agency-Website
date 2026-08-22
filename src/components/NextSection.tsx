@@ -7,6 +7,7 @@ import { SplitText } from "gsap/SplitText";
 import SpotlightCard from "./SpotlightCard";
 import MagneticButton from "./MagneticButton";
 import PlatformMarquee from "./PlatformMarquee";
+import DepthText from "./DepthText";
 
 if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger, SplitText);
@@ -51,18 +52,29 @@ const FAQS = [
 const DATA_METRICS = [
   { value: "3.4X", label: "Average Blended ROAS", sub: "Across all active accounts" },
   { value: "60", unit: "DAYS", label: "To Profitable Scale", sub: "From initial sprint launch" },
-  { value: "$40M+", label: "Ad Spend Managed", sub: "Google, Meta, & Marketplaces" },
-  { value: "120+", label: "Growth Brands Scaled", sub: "DTC, B2B & Enterprise" },
+  { value: "$51M+", label: "In Total Revenue", sub: "Global performance scale" },
+  { value: "300+", label: "Brands Scaled", sub: "DTC, B2B & Enterprise" },
 ];
 
-const LOGO_CLIENTS = [
-  { name: "Logoipsum", icon: "◈" },
-  { name: "Logoipsum", icon: "❖" },
-  { name: "Logoipsum", icon: "●" },
-  { name: "Logoipsum", icon: "▲" },
-  { name: "Logoipsum", icon: "✹" },
-  { name: "Logoipsum", icon: "⬡" },
-  { name: "Logoipsum", icon: "◎" },
+const PROOF_METRICS = [
+  {
+    text: "300+",
+    label: "Brands",
+    midColor: "#FFC619",
+    depthColor: "#004AAD",
+  },
+  {
+    text: "$51M+",
+    label: "In Total Revenue",
+    midColor: "#FFD147",
+    depthColor: "#006CD8",
+  },
+  {
+    text: "₹50Cr+",
+    label: "Revenue Generated",
+    midColor: "#FFB800",
+    depthColor: "#004AAD",
+  },
 ];
 
 export default function NextSection() {
@@ -77,6 +89,26 @@ export default function NextSection() {
     if (reduceMotion) return;
 
     const ctx = gsap.context(() => {
+      // 0. Proof Stats Staggered 3D Reveal
+      gsap.fromTo(
+        ".proof-stat-item",
+        { y: 35, opacity: 0, scale: 0.9, filter: "blur(6px)" },
+        {
+          y: 0,
+          opacity: 1,
+          scale: 1,
+          filter: "blur(0px)",
+          stagger: 0.15,
+          duration: 0.9,
+          ease: "back.out(1.4)",
+          scrollTrigger: {
+            trigger: ".proof-stats-strip",
+            start: "top 88%",
+            toggleActions: "play none none reverse",
+          },
+        }
+      );
+
       // 1. Headings Kinetic Scroll Reveal
       gsap.utils.toArray<HTMLElement>(".gsap-reveal-heading").forEach((el) => {
         gsap.fromTo(
@@ -183,18 +215,39 @@ export default function NextSection() {
   return (
     <div ref={containerRef} className="w-full select-none">
       {/* ------------------------------------------------------------- */}
-      {/* CLIENT LOGO STRIP                                             */}
+      {/* PROOF STATS SHOWCASE STRIP (3D DepthText: 300+ Brands, $51M+, ₹50Cr+) */}
       {/* ------------------------------------------------------------- */}
-      <section className="relative w-full bg-white border-b border-slate-100 py-8 sm:py-10 overflow-hidden">
-        <div className="mx-auto max-w-6xl px-6 flex flex-wrap items-center justify-between gap-8 md:gap-12 opacity-40 hover:opacity-75 transition-opacity">
-          {LOGO_CLIENTS.map((client, idx) => (
-            <div key={idx} className="flex items-center gap-2 text-slate-900">
-              <span className="text-base sm:text-lg font-black">{client.icon}</span>
-              <span className="font-heading text-xs sm:text-sm font-black tracking-wider lowercase">
-                {client.name}
-              </span>
-            </div>
-          ))}
+      <section className="proof-stats-strip relative w-full bg-white border-b border-slate-200/80 py-10 sm:py-16 overflow-hidden shadow-xs">
+        <div className="mx-auto max-w-5xl px-6">
+          <div className="grid grid-cols-1 sm:grid-cols-3 divide-y sm:divide-y-0 sm:divide-x divide-slate-200/80 gap-8 sm:gap-0 items-center">
+            {PROOF_METRICS.map((item, idx) => (
+              <div
+                key={idx}
+                className="proof-stat-item group flex flex-col items-center justify-center text-center px-4 py-4 sm:py-2 transition-transform duration-300 hover:scale-105 cursor-default"
+              >
+                <DepthText
+                  text={item.text}
+                  layers={26}
+                  depth={1.8}
+                  faceColor="#0A1A3A"
+                  midColor={item.midColor}
+                  depthColor={item.depthColor}
+                  tilt={7.5}
+                  delayMs={idx * 150}
+                  pointerTracking
+                  scrollTracking
+                  autoOrbit
+                  orbitSpeed={0.35}
+                  fontSize="clamp(2.3rem, 4.2vw, 3.5rem)"
+                  fontWeight={700}
+                  shadow
+                />
+                <span className="font-heading text-xs sm:text-sm font-semibold uppercase tracking-[0.14em] text-slate-500 mt-3.5 transition-colors duration-200 group-hover:text-[#004AAD]">
+                  {item.label}
+                </span>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 
