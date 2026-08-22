@@ -486,16 +486,16 @@ export default function NextSection() {
               Ready to magnify your bottom-line revenue?
             </h3>
             <p className="mx-auto mt-4 max-w-[48ch] text-sm font-light text-white/75 sm:text-base">
-              Let&rsquo;s audit your ad accounts and architect a tailored roadmap for 3x+ scalable ROAS.
+              Let&rsquo;s analyze your ad accounts and architect a tailored roadmap for 3x+ scalable ROAS.
             </p>
             <div className="mt-8 flex justify-center">
               <MagneticButton strength={0.35}>
                 <a
                   href="mailto:adsmagnify@gmail.com"
-                  data-cursor-text="AUDIT"
+                  data-cursor-text="TALK"
                   className="group relative inline-flex items-center gap-2 overflow-hidden rounded-full border border-[#FFC619] bg-[#FFC619] px-9 py-4 text-xs font-black uppercase tracking-[0.18em] text-[#0A1A3A] shadow-[0_10px_30px_rgba(255,198,25,0.3)] transition-all duration-300 hover:border-[#4CA3FF] hover:bg-[#4CA3FF] hover:text-white"
                 >
-                  <span>Request Free Growth Audit →</span>
+                  <span>Schedule a Strategy Call →</span>
                 </a>
               </MagneticButton>
             </div>

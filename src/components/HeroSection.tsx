@@ -12,6 +12,7 @@ import Lens from "./Lens";
 import Hero3DBackground from "./Hero3DBackground";
 import Noise from "./Noise";
 import OptionWheel from "./OptionWheel";
+import AuditButton from "./AuditButton";
 
 if (typeof window !== "undefined") {
   gsap.registerPlugin(SplitText, ScrollTrigger, CustomEase);
@@ -251,17 +252,8 @@ export default function HeroSection() {
       {/* RESPONSIVE LUXURY HEADER (Balanced Padding, Zero Text Cutoff)  */}
       {/* ------------------------------------------------------------- */}
       <header className="relative z-30 w-full px-5 sm:px-12 pt-3 sm:pt-4 pb-1 sm:pb-2 flex items-center justify-between gap-3 sm:gap-4">
-        {/* Left Side: Desktop Audit CTA Button (Hidden on Mobile) */}
-        <div className="hidden sm:flex items-center gap-3 w-1/4 justify-start">
-          <a
-            href="mailto:adsmagnify@gmail.com"
-            data-cursor-text="AUDIT"
-            className="inline-flex items-center gap-2 rounded-full border border-slate-200/90 bg-white/90 hover:bg-[#004AAD] hover:text-white hover:border-[#004AAD] text-[#0A1A3A] px-4 py-2 text-xs font-bold uppercase tracking-wider transition-all duration-200 shadow-xs backdrop-blur-sm"
-          >
-            <span>Get a Free Audit</span>
-            <span>→</span>
-          </a>
-        </div>
+        {/* Left Side Spacer to maintain centered logo balance on desktop */}
+        <div className="hidden sm:block sm:w-1/4" />
 
         {/* Logo: Sits cleanly on the left for Mobile (<sm), Centered for Desktop (sm+) */}
         <div className="flex items-center justify-start sm:justify-center shrink-0 sm:w-2/4">
@@ -274,13 +266,13 @@ export default function HeroSection() {
           </Link>
         </div>
 
-        {/* Right Side: OptionWheel with Generous Flexible Width (No Text Cutoff) */}
+        {/* Right Side: OptionWheel with Generous Flexible Height & Width (Zero Text Cutoff) */}
         <div className="flex items-center justify-end flex-1 sm:flex-initial sm:w-1/4">
-          <div className="relative w-full max-w-[210px] sm:max-w-[260px] h-[52px] sm:h-[75px] flex items-center justify-end overflow-hidden">
+          <div className="relative w-full max-w-[210px] sm:max-w-[260px] h-[72px] sm:h-[90px] flex items-center justify-end">
             <OptionWheel
               items={["Why Us", "How We Work", "Case Studies", "Contact"]}
               side="right"
-              spacing={1.3}
+              spacing={1.12}
               tilt={5.5}
               curve={0.85}
               textColor="#94a3b8"
@@ -339,28 +331,20 @@ export default function HeroSection() {
           Adsmagnify is a performance marketing agency for ambitious brands—performance marketing, search engine optimization, website development, CRM development with AI integration, and generative AI with UGC & TVC ads, built to scale profitably.
         </p>
 
-        {/* Rock-Solid Stable CTA Buttons */}
-        <div className="hero-ctas mt-4 sm:mt-5 flex flex-wrap items-center justify-center gap-3 sm:gap-4 w-full px-2">
-          <MagneticButton strength={0.18}>
-            <a
-              href="mailto:adsmagnify@gmail.com"
-              data-cursor-text="AUDIT"
-              className="inline-flex items-center gap-2 rounded-full bg-[#004AAD] hover:bg-[#003B8A] text-white px-6 sm:px-7 py-2.5 sm:py-3 text-xs font-black uppercase tracking-[0.15em] shadow-md shadow-[#004AAD]/20 transition-colors duration-200"
-            >
-              <span>Get a Free Growth Audit</span>
-              <span className="inline-block transition-transform duration-200 group-hover:translate-x-1">→</span>
-            </a>
-          </MagneticButton>
+        {/* Themed Multi-Layer Gradient Rotating Audit Button */}
+        <div className="hero-ctas mt-4 sm:mt-5 flex flex-wrap items-center justify-center gap-3.5 sm:gap-4.5 w-full px-2">
+          <AuditButton
+            href="mailto:adsmagnify@gmail.com"
+            text="Get a Free Growth Audit →"
+          />
 
-          <MagneticButton strength={0.18}>
-            <a
-              href="#about"
-              className="inline-flex items-center gap-2 rounded-full border border-slate-300 bg-white hover:bg-slate-50 text-slate-800 px-6 sm:px-7 py-2.5 sm:py-3 text-xs font-bold uppercase tracking-[0.12em] transition-colors duration-200 shadow-xs"
-            >
-              <span>See Our Results</span>
-              <span>↗</span>
-            </a>
-          </MagneticButton>
+          <a
+            href="#about"
+            className="inline-flex items-center gap-2 rounded-full border border-slate-300 bg-white hover:bg-slate-50 text-slate-800 px-6 sm:px-7 py-3 text-xs font-bold uppercase tracking-[0.12em] transition-colors duration-200 shadow-xs"
+          >
+            <span>See Our Results</span>
+            <span>↗</span>
+          </a>
         </div>
 
       </div>

@@ -46,7 +46,7 @@ export default function SiteFooter() {
           </h2>
 
           <p className="mt-4 max-w-[50ch] text-sm font-light leading-relaxed text-white/75 sm:text-base">
-            Get a tailored, full-funnel growth audit. We will audit your ad accounts and show you exactly where to
+            Get a tailored, full-funnel growth blueprint. We will analyze your performance channels and show you exactly where to
             capture 3x+ returns.
           </p>
 

@@ -475,6 +475,31 @@ export default function GalleryTunnel(props: GalleryTunnelProps) {
         ref={canvasRef}
         className="size-full block touch-none"
       />
+
+      {/* Soft Radial Luminous Fog Sanctuary in the Center */}
+      <div className="absolute inset-0 pointer-events-none flex items-center justify-center z-5">
+        <div
+          className="w-[300px] xs:w-[380px] sm:w-[500px] md:w-[600px] h-[200px] xs:h-[250px] sm:h-[320px] md:h-[360px] rounded-full"
+          style={{
+            background: "radial-gradient(ellipse at center, rgba(250, 249, 246, 0.96) 0%, rgba(250, 249, 246, 0.85) 45%, rgba(250, 249, 246, 0) 75%)",
+          }}
+        />
+      </div>
+
+      {/* Editorial Luxury Centerpiece - Pure Clean Typography (Zero Buttons) */}
+      <div className="absolute inset-0 pointer-events-none flex flex-col items-center justify-center text-center px-4 z-10 select-none">
+        <div className="max-w-[260px] sm:max-w-xs md:max-w-sm mx-auto flex flex-col items-center">
+          {/* Headline */}
+          <h2 className="font-serif text-lg xs:text-xl sm:text-2xl md:text-3xl text-[#0A1A3A] tracking-tight leading-tight mb-1.5 drop-shadow-xs">
+            Client Testimonial Videos
+          </h2>
+
+          {/* Subtitle */}
+          <p className="font-sans text-[0.68rem] xs:text-xs sm:text-[0.8rem] text-gray-500 max-w-[210px] sm:max-w-[250px] leading-relaxed">
+            Watch founders share how AdsMagnify scaled their growth.
+          </p>
+        </div>
+      </div>
     </div>
   );
 }
