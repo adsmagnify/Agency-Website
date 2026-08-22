@@ -155,14 +155,19 @@ export default function HeroSection() {
     };
   }, []);
 
-  const headlineWords = [
-    { text: "Marketing", isAccent: false },
-    { text: "that", isAccent: false },
-    { text: "magnifies", isAccent: true },
-    { text: "every", isAccent: false },
-    { text: "dollar", isAccent: false },
-    { text: "you", isAccent: false },
-    { text: "spend", isAccent: false },
+  // Structured lines to guarantee zero line-break jumps on hover
+  const headlineLines = [
+    [
+      { text: "Marketing", isAccent: false },
+      { text: "that", isAccent: false },
+      { text: "magnifies", isAccent: true },
+    ],
+    [
+      { text: "every", isAccent: false },
+      { text: "dollar", isAccent: false },
+      { text: "you", isAccent: false },
+      { text: "spend", isAccent: false },
+    ],
   ];
 
   return (
@@ -258,24 +263,69 @@ export default function HeroSection() {
       {/* ------------------------------------------------------------- */}
       <div className="relative z-20 w-full px-4 sm:px-6 max-w-4xl mx-auto text-center flex flex-col items-center pt-3 sm:pt-5 md:pt-6 pb-2 sm:pb-3">
         
-        {/* Interactive Magnifying Glass Lens with Calibrated Desktop Scale */}
+        {/* Interactive Magnifying Glass Lens with Locked Line Structure (Zero Jump on Hover) */}
         <Lens lensSize={190} maxStretch={1.38} radius={120} className="w-full">
           <h1
-            className="font-serif text-[2.2rem] xs:text-[2.6rem] sm:text-4xl md:text-5xl lg:text-[4.2rem] font-normal leading-[1.14] sm:leading-[1.16] tracking-tight text-[#0A1A3A] max-w-[22ch] mx-auto py-1 sm:py-2"
+            className="font-serif text-[2.2rem] xs:text-[2.6rem] sm:text-4xl md:text-5xl lg:text-[4.2rem] font-normal leading-[1.14] sm:leading-[1.16] tracking-tight text-[#0A1A3A] max-w-4xl mx-auto py-1 sm:py-2"
             style={{ perspective: "1000px" }}
           >
-            {headlineWords.map((word, wIdx) => {
-              const chars = word.text.split("");
+            {headlineLines.map((line, lIdx) => (
+              <span
+                key={lIdx}
+                className="block whitespace-normal sm:whitespace-nowrap"
+              >
+                {line.map((word, wIdx) => {
+                  const chars = word.text.split("");
 
-              if (word.isAccent) {
-                return (
-                  <span
-                    key={wIdx}
-                    className="inline-block relative mx-1.5 sm:mx-2 px-1.5 sm:px-2 py-0.5 align-baseline tracking-[0.02em]"
-                    style={{ transformStyle: "preserve-3d" }}
-                  >
-                    {/* Glowing Accent Letters */}
-                    <span className="hero-accent-text italic font-normal text-[#004AAD] inline-block pr-2 sm:pr-3 relative z-10 drop-shadow-[0_2px_12px_rgba(0,74,173,0.18)]">
+                  if (word.isAccent) {
+                    return (
+                      <span
+                        key={wIdx}
+                        className="inline-block relative mx-1.5 sm:mx-2 px-1.5 sm:px-2 py-0.5 align-baseline tracking-[0.02em]"
+                        style={{ transformStyle: "preserve-3d" }}
+                      >
+                        {/* Glowing Accent Letters */}
+                        <span className="hero-accent-text italic font-normal text-[#004AAD] inline-block pr-2 sm:pr-3 relative z-10 drop-shadow-[0_2px_12px_rgba(0,74,173,0.18)]">
+                          {chars.map((char, cIdx) => (
+                            <span
+                              key={cIdx}
+                              className="proxi-char hero-char inline-block will-change-transform"
+                              style={{
+                                transformOrigin: "center center",
+                                transition: "transform 0.06s ease-out, padding 0.06s ease-out, letter-spacing 0.06s ease-out",
+                              }}
+                            >
+                              {char}
+                            </span>
+                          ))}
+                        </span>
+
+                        {/* Sparkle 1: Top Right Gold Star */}
+                        <span className="sparkle-item sparkle-1 pointer-events-none absolute -top-3 -right-3 text-[#FFC619] text-base sm:text-xl select-none z-20">
+                          ✦
+                        </span>
+
+                        {/* Sparkle 2: Top Left Cyan Mini Star */}
+                        <span className="sparkle-item sparkle-2 pointer-events-none absolute -top-2 -left-2 text-[#4CA3FF] text-xs sm:text-base select-none z-20">
+                          ✧
+                        </span>
+
+                        {/* Sparkle 3: Bottom Right Gold Micro Sparkle */}
+                        <span className="sparkle-item sparkle-3 pointer-events-none absolute -bottom-1.5 -right-1.5 text-[#FFC619] text-xs sm:text-sm select-none z-20">
+                          ⋆
+                        </span>
+
+                        {/* Decorative Gradient Underline */}
+                        <span className="magnify-underline pointer-events-none absolute -bottom-0.5 left-1 right-2 sm:right-3 h-[2.5px] bg-gradient-to-r from-[#004AAD] via-[#4CA3FF] to-[#FFC619] rounded-full" />
+                      </span>
+                    );
+                  }
+
+                  return (
+                    <span
+                      key={wIdx}
+                      className="inline-block mx-1.5 sm:mx-2 whitespace-nowrap tracking-[0.02em]"
+                    >
                       {chars.map((char, cIdx) => (
                         <span
                           key={cIdx}
@@ -289,48 +339,10 @@ export default function HeroSection() {
                         </span>
                       ))}
                     </span>
-
-                    {/* Sparkle 1: Top Right Gold Star */}
-                    <span className="sparkle-item sparkle-1 pointer-events-none absolute -top-3 -right-3 text-[#FFC619] text-base sm:text-xl select-none z-20">
-                      ✦
-                    </span>
-
-                    {/* Sparkle 2: Top Left Cyan Mini Star */}
-                    <span className="sparkle-item sparkle-2 pointer-events-none absolute -top-2 -left-2 text-[#4CA3FF] text-xs sm:text-base select-none z-20">
-                      ✧
-                    </span>
-
-                    {/* Sparkle 3: Bottom Right Gold Micro Sparkle */}
-                    <span className="sparkle-item sparkle-3 pointer-events-none absolute -bottom-1.5 -right-1.5 text-[#FFC619] text-xs sm:text-sm select-none z-20">
-                      ⋆
-                    </span>
-
-                    {/* Decorative Gradient Underline */}
-                    <span className="magnify-underline pointer-events-none absolute -bottom-0.5 left-1 right-2 sm:right-3 h-[2.5px] bg-gradient-to-r from-[#004AAD] via-[#4CA3FF] to-[#FFC619] rounded-full" />
-                  </span>
-                );
-              }
-
-              return (
-                <span
-                  key={wIdx}
-                  className="inline-block mx-1.5 sm:mx-2 whitespace-nowrap tracking-[0.02em]"
-                >
-                  {chars.map((char, cIdx) => (
-                    <span
-                      key={cIdx}
-                      className="proxi-char hero-char inline-block will-change-transform"
-                      style={{
-                        transformOrigin: "center center",
-                        transition: "transform 0.06s ease-out, padding 0.06s ease-out, letter-spacing 0.06s ease-out",
-                      }}
-                    >
-                      {char}
-                    </span>
-                  ))}
-                </span>
-              );
-            })}
+                  );
+                })}
+              </span>
+            ))}
           </h1>
         </Lens>
 
