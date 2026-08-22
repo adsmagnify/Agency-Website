@@ -1,0 +1,1276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>AdsMagnify — Performance Marketing & Growth Academy</title>
+  <meta name="description" content="AI-powered performance marketing agency and growth academy in Mumbai. Magnify your business revenue with data-driven strategies." />
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@600;700&family=Lilita+One&family=Anton&family=Archivo:wght@700;800&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      --yellow: #ffc737;
+      --cream: #f7f2e5;
+      --dark: #000000;
+      --red: #eb3322;
+      --purple: #7721c7;
+      --blue: #2097cf;
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    /* Selection */
+    ::selection {
+      background: var(--dark);
+      color: var(--yellow);
+    }
+
+    html, body {
+      width: 100%;
+      height: 100%;
+      background: var(--yellow);
+      font-family: "Fredoka", system-ui, sans-serif;
+      color: var(--dark);
+      overflow: hidden;
+      user-select: none;
+    }
+
+    /* Outlined items & buttons */
+    .btn-shadow {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border: 3.5px solid var(--dark);
+      border-radius: 14px;
+      background: var(--cream);
+      color: var(--dark);
+      font-family: "Lilita One", sans-serif;
+      font-size: 1.45rem;
+      text-transform: uppercase;
+      text-decoration: none;
+      padding: 0.65rem 1.5rem;
+      cursor: pointer;
+      box-shadow: 4px 4px 0 var(--dark);
+      transition: transform 0.1s ease, box-shadow 0.1s ease;
+    }
+
+    .btn-shadow:hover {
+      transform: translate(2px, 2px);
+      box-shadow: 2px 2px 0 var(--dark);
+      background: #fff;
+    }
+
+    .btn-shadow:active {
+      transform: translate(4px, 4px);
+      box-shadow: 0px 0px 0 var(--dark);
+    }
+
+    /* Preloader */
+    #preloader {
+      position: fixed;
+      inset: 0;
+      background: var(--yellow);
+      z-index: 9999;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 2rem;
+      transition: transform 0.8s cubic-bezier(0.77, 0, 0.175, 1);
+    }
+
+    .preloader-bg-bubble {
+      position: absolute;
+      width: 70vw;
+      height: 70vw;
+      max-width: 600px;
+      max-height: 600px;
+      background: var(--cream);
+      border: 3.5px solid var(--dark);
+      border-radius: 50%;
+      z-index: -1;
+      transform: scale(0.9);
+      animation: bubble-bounce 4s ease-in-out infinite alternate;
+    }
+
+    @keyframes bubble-bounce {
+      0% { transform: scale(0.9) rotate(0deg); }
+      100% { transform: scale(1.05) rotate(15deg); }
+    }
+
+    .preloader-content {
+      text-align: center;
+      z-index: 5;
+      padding: 20px;
+    }
+
+    .preloader-logo {
+      font-size: clamp(3.5rem, 8vw, 6.5rem);
+      color: var(--dark);
+      -webkit-text-stroke: 3.5px var(--dark);
+      text-shadow: 5px 5px 0 var(--cream);
+      margin-bottom: 0.5rem;
+      font-family: "Lilita One", sans-serif;
+    }
+
+    .preloader-sub {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--dark);
+      letter-spacing: 0.1em;
+      margin-bottom: 2rem;
+      text-transform: uppercase;
+    }
+
+    .sound-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-weight: 700;
+      font-size: 0.85rem;
+      color: var(--dark);
+      margin-top: 1.5rem;
+      text-transform: uppercase;
+      opacity: 0.8;
+    }
+
+    .sound-badge svg {
+      width: 20px;
+      height: 20px;
+    }
+
+    /* Header Nav exactly matching screenshot */
+    .site-header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 7.5rem;
+      z-index: 100;
+      display: grid;
+      grid-template-columns: 1.2fr auto 1.2fr;
+      align-items: center;
+      padding: 0 4rem;
+    }
+
+    .header-nav-left {
+      display: flex;
+      gap: 3.5rem;
+      justify-content: flex-start;
+    }
+
+    .header-nav-right {
+      display: flex;
+      gap: 3.5rem;
+      justify-content: flex-end;
+      align-items: center;
+    }
+
+    .header-link {
+      font-family: "Lilita One", sans-serif;
+      font-size: 1.5rem;
+      color: var(--dark);
+      text-decoration: none;
+      text-transform: uppercase;
+      letter-spacing: -0.01em;
+      transition: color 0.1s ease;
+    }
+
+    .header-link:hover {
+      color: var(--red);
+    }
+
+    /* Outlined Center Logo matching PLANETONO */
+    .logo-container {
+      font-family: "Lilita One", sans-serif;
+      font-size: 3.2rem;
+      color: #ffffff;
+      -webkit-text-stroke: 3px var(--dark);
+      text-shadow: 4px 4px 0 var(--dark);
+      letter-spacing: -0.03em;
+      text-transform: uppercase;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      line-height: 0.82;
+      cursor: pointer;
+    }
+
+    .logo-subtitle {
+      font-family: "Lilita One", sans-serif;
+      font-size: 0.95rem;
+      color: var(--yellow);
+      -webkit-text-stroke: 1.5px var(--dark);
+      text-shadow: 2px 2px 0 var(--dark);
+      letter-spacing: 0.1em;
+    }
+
+    /* Sound Switcher */
+    .sound-switcher-capsule {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      cursor: pointer;
+      background: none;
+      border: none;
+      outline: none;
+    }
+
+    .sound-speaker-btn {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      border: 3px solid var(--dark);
+      background: var(--cream);
+      box-shadow: 3.5px 3.5px 0 var(--dark);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform 0.1s ease, box-shadow 0.1s ease;
+    }
+
+    .sound-switcher-capsule:hover .sound-speaker-btn {
+      transform: translate(1px, 1px);
+      box-shadow: 2px 2px 0 var(--dark);
+      background: #fff;
+    }
+
+    .sound-speaker-btn svg {
+      width: 22px;
+      height: 22px;
+      fill: var(--dark);
+    }
+
+    /* Main Hero Grid */
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 0.95fr 1.15fr 0.95fr;
+      align-items: center;
+      width: 100%;
+      height: 100vh;
+      padding: 7.5rem 4rem 2rem 4rem;
+      gap: 3.5rem;
+      position: relative;
+    }
+
+    /* LEFT COLUMN: STICKER BURST */
+    .sticker-column {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      width: 100%;
+      height: 100%;
+    }
+
+    .sticker-burst {
+      position: relative;
+      width: 330px;
+      height: 330px;
+      filter: drop-shadow(8px 8px 0px var(--dark));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .sticker-svg {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      transform-origin: center;
+    }
+
+    .sticker-content-wrapper {
+      position: relative;
+      z-index: 5;
+      text-align: center;
+      width: 75%;
+      transform: rotate(-5deg);
+      display: none;
+    }
+
+    .sticker-content-wrapper.active {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      animation: sticker-pop 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+    }
+
+    @keyframes sticker-pop {
+      0% { transform: scale(0.6) rotate(-20deg); opacity: 0; }
+      100% { transform: scale(1) rotate(-5deg); opacity: 1; }
+    }
+
+    .sticker-tag {
+      font-family: "Lilita One", sans-serif;
+      font-size: 1.25rem;
+      color: var(--dark);
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      margin-bottom: 2px;
+    }
+
+    .sticker-value {
+      font-family: "Lilita One", "Anton", sans-serif;
+      font-size: 3rem;
+      color: var(--red);
+      line-height: 0.9;
+      text-transform: uppercase;
+      word-wrap: break-word;
+    }
+
+    /* CENTER COLUMN: OVAL PORTAL */
+    .portal-column {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      height: 100%;
+      position: relative;
+    }
+
+    .portal-ring {
+      position: relative;
+      width: clamp(290px, 29vw, 370px);
+      height: clamp(390px, 39vw, 490px);
+      border: 6px solid var(--dark);
+      border-radius: 50%;
+      background: var(--blue); /* Transitions in JS between Blue, Red, Purple */
+      transform: rotate(-10deg);
+      box-shadow: 10px 10px 0 var(--dark);
+      overflow: hidden; /* masks the three.js container so cards/trays emerge from inside */
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 5;
+      transition: background-color 0.85s cubic-bezier(0.25, 1, 0.5, 1);
+    }
+
+    .portal-glow {
+      position: absolute;
+      inset: -5px;
+      border-radius: 50%;
+      box-shadow: 0 0 35px rgba(119, 33, 199, 0.45);
+      pointer-events: none;
+      z-index: 2;
+    }
+
+    #hero-webgl {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 3;
+    }
+
+    /* RIGHT COLUMN: COPY & CONTROLS */
+    .copy-column {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 1.5rem;
+      height: 100%;
+      padding-left: 1rem;
+    }
+
+    .slide-copy {
+      display: none;
+    }
+
+    .slide-copy.active {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+      animation: copy-slide-in 0.5s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+    }
+
+    @keyframes copy-slide-in {
+      from { opacity: 0; transform: translateX(30px); }
+      to { opacity: 1; transform: translateX(0); }
+    }
+
+    /* Bold headline layout matching screenshot */
+    .copy-title {
+      font-size: clamp(2.4rem, 4.2vw, 4rem);
+      color: var(--dark);
+      font-family: "Lilita One", "Anton", sans-serif;
+      text-transform: uppercase;
+      line-height: 0.88;
+      letter-spacing: -0.02em;
+    }
+
+    .play-arrow-svg {
+      width: 32px;
+      height: 32px;
+      vertical-align: middle;
+      margin-right: 6px;
+      filter: drop-shadow(3px 3.5px 0px var(--dark));
+    }
+
+    .copy-desc-wrapper {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+      max-width: 44ch;
+    }
+
+    .copy-desc {
+      font-size: 1.15rem;
+      font-weight: 600;
+      color: var(--dark);
+      line-height: 1.35;
+    }
+
+    /* Swiper Slider Controls */
+    .slider-controls {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      margin-top: 1rem;
+    }
+
+    .slider-btn {
+      width: 54px;
+      height: 54px;
+      border-radius: 14px;
+      border: 3.5px solid var(--dark);
+      background: var(--cream);
+      box-shadow: 4px 4px 0 var(--dark);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: transform 0.1s ease, box-shadow 0.1s ease;
+      outline: none;
+    }
+
+    .slider-btn:hover {
+      transform: translate(1.5px, 1.5px);
+      box-shadow: 2.5px 2.5px 0 var(--dark);
+      background: #fff;
+    }
+
+    .slider-btn:active {
+      transform: translate(4px, 4px);
+      box-shadow: 0px 0px 0 var(--dark);
+    }
+
+    .slider-btn svg {
+      width: 24px;
+      height: 24px;
+      stroke: var(--dark);
+      stroke-width: 3.5;
+    }
+
+    /* Slider Progress indicators matching Swiper */
+    .slider-progress-track {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .slider-dot {
+      width: 12px;
+      height: 12px;
+      border: 3.5px solid var(--dark);
+      border-radius: 50%;
+      background: var(--dark);
+      transition: width 0.3s cubic-bezier(0.25, 1, 0.5, 1), border-radius 0.3s ease;
+    }
+
+    .slider-dot.active {
+      width: 52px;
+      border-radius: 6px;
+      background: var(--dark);
+    }
+
+    /* Scroll Chevron indicator at bottom */
+    .scroll-chevron {
+      position: absolute;
+      bottom: 2rem;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      color: var(--dark);
+      animation: bounce 1.5s ease-in-out infinite alternate;
+      pointer-events: none;
+    }
+
+    @keyframes bounce {
+      0% { transform: translate(-50%, 0); }
+      100% { transform: translate(-50%, -6px); }
+    }
+
+    .scroll-chevron svg {
+      width: 24px;
+      height: 24px;
+    }
+
+    /* Background decorative stars */
+    .bg-decorations {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .bg-star {
+      position: absolute;
+      color: var(--dark);
+      opacity: 0.15;
+      animation: star-twinkle 3s ease-in-out infinite alternate;
+    }
+
+    @keyframes star-twinkle {
+      0% { transform: scale(0.8) rotate(0deg); opacity: 0.1; }
+      100% { transform: scale(1.1) rotate(15deg); opacity: 0.25; }
+    }
+
+    .bg-star.is-1 { left: 8%; top: 20%; animation-delay: 0s; }
+    .bg-star.is-2 { left: 45%; top: 12%; animation-delay: 0.5s; }
+    .bg-star.is-3 { right: 10%; top: 22%; animation-delay: 1s; }
+    .bg-star.is-4 { left: 20%; bottom: 15%; animation-delay: 1.5s; }
+    .bg-star.is-5 { right: 22%; bottom: 18%; animation-delay: 2s; }
+
+    /* Responsive */
+    @media (max-width: 900px) {
+      body {
+        overflow-y: auto;
+      }
+      .hero-grid {
+        grid-template-columns: 1fr;
+        grid-template-rows: auto auto auto;
+        height: auto;
+        padding-top: 8.5rem;
+        gap: 2rem;
+        align-items: center;
+        justify-content: center;
+      }
+      .site-header {
+        grid-template-columns: 1fr auto;
+        padding: 0 1.5rem;
+      }
+      .header-nav-left {
+        display: none;
+      }
+      .sticker-column {
+        height: auto;
+      }
+      .portal-column {
+        height: 380px;
+      }
+      .copy-column {
+        height: auto;
+        padding-left: 0;
+        align-items: center;
+        text-align: center;
+      }
+      .copy-desc-wrapper {
+        max-width: none;
+        grid-template-columns: 1fr;
+        gap: 0.75rem;
+      }
+      .slider-controls {
+        justify-content: center;
+      }
+      .scroll-chevron {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Preloader Screen -->
+  <div id="preloader">
+    <div class="preloader-bg-bubble"></div>
+    <div class="preloader-content">
+      <h1 class="preloader-logo">ADSMAGNIFY</h1>
+      <p class="preloader-sub">AI-Powered Performance Agency</p>
+      <button class="btn-shadow" id="start-btn">ENTER PORTAL</button>
+      <div class="sound-badge">
+        <svg viewBox="0 0 24 24" fill="currentColor">
+          <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/>
+        </svg>
+        <span>Immersive sound active</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Header matching Planetono -->
+  <header class="site-header">
+    <nav class="header-nav-left">
+      <a href="#how" class="header-link">How it works</a>
+      <a href="#locations" class="header-link">Locations</a>
+    </nav>
+    
+    <div class="logo-container" id="logo-trigger">
+      ADSMAGNIFY
+      <span class="logo-subtitle">PRO-AGENCY</span>
+    </div>
+    
+    <nav class="header-nav-right">
+      <a href="mailto:mail@adsmagnify.com" class="header-link">Contact</a>
+      <button class="sound-switcher-capsule" id="sound-toggle" aria-label="Toggle Sound">
+        <span class="header-link">Sound on</span>
+        <div class="sound-speaker-btn">
+          <svg id="sound-icon-on" viewBox="0 0 24 24">
+            <path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/>
+          </svg>
+          <svg id="sound-icon-off" viewBox="0 0 24 24" style="display:none;">
+            <path d="M4.27 3L3 4.27l9 9v.28c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4v-1.73l6 6L21 20l-9-9-7.73-8.03zM14 7h4V3h-6v5.18l2 2V7z"/>
+          </svg>
+        </div>
+      </button>
+    </nav>
+  </header>
+
+  <!-- Star Background items -->
+  <div class="bg-decorations">
+    <svg class="bg-star is-1" viewBox="0 0 24 24" width="28" height="28" fill="currentColor"><path d="M12 2l2.4 7.4H22l-6 4.6 2.3 7-6.3-4.6L5.7 21l2.3-7-6-4.6h7.6z"/></svg>
+    <svg class="bg-star is-2" viewBox="0 0 24 24" width="22" height="22" fill="currentColor"><path d="M12 2l2.4 7.4H22l-6 4.6 2.3 7-6.3-4.6L5.7 21l2.3-7-6-4.6h7.6z"/></svg>
+    <svg class="bg-star is-3" viewBox="0 0 24 24" width="30" height="30" fill="currentColor"><path d="M12 2l2.4 7.4H22l-6 4.6 2.3 7-6.3-4.6L5.7 21l2.3-7-6-4.6h7.6z"/></svg>
+    <svg class="bg-star is-4" viewBox="0 0 24 24" width="24" height="24" fill="currentColor"><path d="M12 2l2.4 7.4H22l-6 4.6 2.3 7-6.3-4.6L5.7 21l2.3-7-6-4.6h7.6z"/></svg>
+    <svg class="bg-star is-5" viewBox="0 0 24 24" width="28" height="28" fill="currentColor"><path d="M12 2l2.4 7.4H22l-6 4.6 2.3 7-6.3-4.6L5.7 21l2.3-7-6-4.6h7.6z"/></svg>
+  </div>
+
+  <!-- Hero Grid Layout -->
+  <main class="hero-grid">
+    
+    <!-- LEFT COLUMN: STICKER BURST -->
+    <div class="sticker-column">
+      <div class="sticker-burst">
+        <!-- Exact comic jagged path -->
+        <svg class="sticker-svg" viewBox="0 0 200 200">
+          <path d="M 100,6 L 118,36 L 152,22 L 145,56 L 178,58 L 153,82 L 176,110 L 144,116 L 150,150 L 118,142 L 105,175 L 85,145 L 52,160 L 58,126 L 25,120 L 48,96 L 26,68 L 56,66 L 50,32 L 80,42 Z" fill="#ffffff" stroke="#000000" stroke-width="5" stroke-linejoin="round" />
+        </svg>
+        
+        <!-- Sticker Content Swaps -->
+        <div class="sticker-content-wrapper active" data-slide="0">
+          <span class="sticker-tag">TRUSTED BY</span>
+          <span class="sticker-value">300+<br/>BRANDS</span>
+        </div>
+        <div class="sticker-content-wrapper" data-slide="1">
+          <span class="sticker-tag">GENERATED</span>
+          <span class="sticker-value">$51M+<br/>REVENUE</span>
+        </div>
+        <div class="sticker-content-wrapper" data-slide="2">
+          <span class="sticker-tag">OPTIMIZED</span>
+          <span class="sticker-value">₹50CR+<br/>SPENDS</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- CENTER COLUMN: OVAL PORTAL -->
+    <div class="portal-column">
+      <div class="portal-ring" id="portal-frame">
+        <div class="portal-glow"></div>
+        <canvas id="hero-webgl"></canvas>
+      </div>
+    </div>
+
+    <!-- RIGHT COLUMN: COPY & CONTROLS -->
+    <div class="copy-column">
+      
+      <!-- Slide 0 Copy -->
+      <div class="slide-copy active" data-slide="0">
+        <h2 class="copy-title">
+          BIGGER<br/>
+          THAN TRAFFIC.<br/>
+          SMALLER THAN<br/>
+          <svg class="play-arrow-svg" viewBox="0 0 24 24">
+            <path d="M8 5v14l11-7z" fill="white" stroke="black" stroke-width="3" stroke-linejoin="round" />
+          </svg>A GALAXY
+        </h2>
+        <div class="copy-desc-wrapper">
+          <p class="copy-desc">Scaling performance campaigns globally.</p>
+          <p class="copy-desc">Over 300 brands served since 2016.</p>
+        </div>
+      </div>
+
+      <!-- Slide 1 Copy -->
+      <div class="slide-copy" data-slide="1">
+        <h2 class="copy-title">
+          CELESTIAL<br/>
+          FUEL FOR<br/>
+          CLIENTS<br/>
+          <svg class="play-arrow-svg" viewBox="0 0 24 24">
+            <path d="M8 5v14l11-7z" fill="white" stroke="black" stroke-width="3" stroke-linejoin="round" />
+          </svg>REVENUE
+        </h2>
+        <div class="copy-desc-wrapper">
+          <p class="copy-desc">Double pipeline capture speeds.</p>
+          <p class="copy-desc">$51M+ in total revenue generated.</p>
+        </div>
+      </div>
+
+      <!-- Slide 2 Copy -->
+      <div class="slide-copy" data-slide="2">
+        <h2 class="copy-title">
+          AD SPENDS<br/>
+          SO GOOD,<br/>
+          GRAVITY CAN<br/>
+          <svg class="play-arrow-svg" viewBox="0 0 24 24">
+            <path d="M8 5v14l11-7z" fill="white" stroke="black" stroke-width="3" stroke-linejoin="round" />
+          </svg>WAIT
+        </h2>
+        <div class="copy-desc-wrapper">
+          <p class="copy-desc">Intelligent media buying funnels.</p>
+          <p class="copy-desc">₹50Cr+ spent with optimized ROAS.</p>
+        </div>
+      </div>
+
+      <!-- Swiper Controls -->
+      <div class="slider-controls">
+        <button class="slider-btn" id="prev-btn" aria-label="Previous Slide">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="19" y1="12" x2="5" y2="12"></line>
+            <polyline points="12 19 5 12 12 5"></polyline>
+          </svg>
+        </button>
+        
+        <div class="slider-progress-track">
+          <div class="slider-dot active" data-dot="0"></div>
+          <div class="slider-dot" data-dot="1"></div>
+          <div class="slider-dot" data-dot="2"></div>
+        </div>
+        
+        <button class="slider-btn" id="next-btn" aria-label="Next Slide">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="5" y1="12" x2="19" y2="12"></line>
+            <polyline points="12 5 19 12 12 19"></polyline>
+          </svg>
+        </button>
+      </div>
+
+    </div>
+
+  </main>
+
+  <!-- Bottom chevron indicators -->
+  <div class="scroll-chevron">
+    <svg viewBox="0 0 24 24" fill="currentColor">
+      <path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/>
+    </svg>
+    <svg viewBox="0 0 24 24" fill="currentColor" style="margin-top: -12px;">
+      <path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/>
+    </svg>
+  </div>
+
+  <script type="importmap">
+  {
+    "imports": {
+      "three": "https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js",
+      "gsap": "https://cdn.jsdelivr.net/npm/gsap@3.12.5/index.js"
+    }
+  }
+  </script>
+
+  <script type="module">
+    import * as THREE from "three";
+    import gsap from "gsap";
+
+    // Audio synthesizer context using Web Audio API
+    let audioCtx = null;
+    let soundEnabled = false;
+
+    function initAudio() {
+      if (audioCtx) return;
+      audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    }
+
+    function playSound(type) {
+      if (!soundEnabled || !audioCtx) return;
+      if (audioCtx.state === 'suspended') {
+        audioCtx.resume();
+      }
+      
+      const ctx = audioCtx;
+      const now = ctx.currentTime;
+      
+      if (type === 'click') {
+        // High frequency clean beep
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(650, now);
+        osc.frequency.exponentialRampToValueAtTime(180, now + 0.1);
+        gain.gain.setValueAtTime(0.2, now);
+        gain.gain.linearRampToValueAtTime(0.001, now + 0.1);
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        osc.start();
+        osc.stop(now + 0.1);
+      } else if (type === 'hover') {
+        // Tiny click/pop
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.type = 'triangle';
+        osc.frequency.setValueAtTime(900, now);
+        gain.gain.setValueAtTime(0.04, now);
+        gain.gain.linearRampToValueAtTime(0.001, now + 0.03);
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        osc.start();
+        osc.stop(now + 0.03);
+      } else if (type === 'swell') {
+        // Deep swell
+        const osc = ctx.createOscillator();
+        const osc2 = ctx.createOscillator();
+        const gain = ctx.createGain();
+        
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(150, now);
+        osc.frequency.exponentialRampToValueAtTime(700, now + 0.5);
+        
+        osc2.type = 'triangle';
+        osc2.frequency.setValueAtTime(152, now);
+        osc2.frequency.exponentialRampToValueAtTime(705, now + 0.5);
+
+        gain.gain.setValueAtTime(0.12, now);
+        gain.gain.exponentialRampToValueAtTime(0.001, now + 0.6);
+        
+        osc.connect(gain);
+        osc2.connect(gain);
+        gain.connect(ctx.destination);
+        
+        osc.start();
+        osc2.start();
+        osc.stop(now + 0.6);
+        osc2.stop(now + 0.6);
+      }
+    }
+
+    // Preloader interaction
+    const preloader = document.getElementById("preloader");
+    const startBtn = document.getElementById("start-btn");
+    const soundToggle = document.getElementById("sound-toggle");
+    const soundIconOn = document.getElementById("sound-icon-on");
+    const soundIconOff = document.getElementById("sound-icon-off");
+
+    startBtn.addEventListener("click", () => {
+      soundEnabled = true;
+      initAudio();
+      playSound('swell');
+      
+      // Animate out preloader
+      gsap.to(preloader, {
+        yPercent: -100,
+        duration: 1.1,
+        ease: "power4.inOut",
+        onComplete: () => {
+          preloader.style.display = "none";
+          introAnimation();
+        }
+      });
+    });
+
+    startBtn.addEventListener("mouseenter", () => {
+      initAudio();
+      playSound('hover');
+    });
+
+    // Sound Toggle handler
+    soundToggle.addEventListener("click", () => {
+      initAudio();
+      soundEnabled = !soundEnabled;
+      playSound('click');
+      if (soundEnabled) {
+        soundIconOn.style.display = "block";
+        soundIconOff.style.display = "none";
+        soundToggle.querySelector('span').textContent = "Sound on";
+      } else {
+        soundIconOn.style.display = "none";
+        soundIconOff.style.display = "block";
+        soundToggle.querySelector('span').textContent = "Sound off";
+      }
+    });
+
+    // Navigation links sound hover
+    const navItems = document.querySelectorAll(".header-link, .slider-btn");
+    navItems.forEach(item => {
+      item.addEventListener("mouseenter", () => playSound('hover'));
+      item.addEventListener("click", () => playSound('click'));
+    });
+
+
+    /* ---------- THREE.JS PORTAL SCENE ---------- */
+    const canvas = document.getElementById("hero-webgl");
+    const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    renderer.outputColorSpace = THREE.SRGBColorSpace;
+
+    const scene = new THREE.Scene();
+    // Perspective camera set slightly off-center to capture 3D tray angles
+    const camera = new THREE.PerspectiveCamera(38, 1, 0.1, 100);
+    camera.position.set(0, 0.45, 6);
+
+    // Lights
+    scene.add(new THREE.AmbientLight(0xffffff, 0.8));
+    const mainLight = new THREE.DirectionalLight(0xffffff, 1.45);
+    mainLight.position.set(3, 4.5, 4);
+    scene.add(mainLight);
+
+    const fillLight = new THREE.DirectionalLight(0xffffff, 0.5); 
+    fillLight.position.set(-3, -1.5, 2);
+    scene.add(fillLight);
+
+    // Main tray Group
+    const trayGroup = new THREE.Group();
+    // Tilted tray setup inside portal
+    trayGroup.position.set(0, -0.65, -0.65);
+    trayGroup.rotation.set(0.42, 0.12, 0);
+    scene.add(trayGroup);
+
+    // Purple Tray Geometry (mimics the food tray in the screenshot)
+    const TRAY_W = 2.4;
+    const TRAY_H = 0.08;
+    const TRAY_D = 1.8;
+    
+    // Tray base material (starts blue, transitions to red/purple in JS)
+    const trayMat = new THREE.MeshStandardMaterial({
+      color: 0x0a7bb0, // blue
+      roughness: 0.35,
+      metalness: 0.1
+    });
+    const trayBase = new THREE.Mesh(new THREE.BoxGeometry(TRAY_W, TRAY_H, TRAY_D), trayMat);
+    trayGroup.add(trayBase);
+
+    // Tray borders
+    const borderMat = new THREE.MeshStandardMaterial({ color: 0x065377, roughness: 0.4 });
+    
+    // Front/Back borders
+    const bGeoFB = new THREE.BoxGeometry(TRAY_W + 0.06, 0.22, 0.06);
+    const borderF = new THREE.Mesh(bGeoFB, borderMat);
+    borderF.position.set(0, 0.07, TRAY_D/2 + 0.03);
+    trayGroup.add(borderF);
+    
+    const borderB = new THREE.Mesh(bGeoFB, borderMat);
+    borderB.position.set(0, 0.07, -TRAY_D/2 - 0.03);
+    trayGroup.add(borderB);
+
+    // Left/Right borders
+    const bGeoLR = new THREE.BoxGeometry(0.06, 0.22, TRAY_D);
+    const borderL = new THREE.Mesh(bGeoLR, borderMat);
+    borderL.position.set(-TRAY_W/2 - 0.03, 0.07, 0);
+    trayGroup.add(borderL);
+
+    const borderR = new THREE.Mesh(bGeoLR, borderMat);
+    borderR.position.set(TRAY_W/2 + 0.03, 0.07, 0);
+    trayGroup.add(borderR);
+
+
+    // Values 3D objects resting above the tray
+    // Object 0: 300+ Brands Golden Coin
+    const coinGroup = new THREE.Group();
+    const coinGeo = new THREE.CylinderGeometry(0.68, 0.68, 0.12, 32);
+    const coinMat = new THREE.MeshStandardMaterial({
+      color: 0xffc619,
+      metalness: 0.9,
+      roughness: 0.15
+    });
+    const coinMesh = new THREE.Mesh(coinGeo, coinMat);
+    coinMesh.rotation.x = Math.PI / 2;
+    coinGroup.add(coinMesh);
+
+    // Inner detail ring
+    const coinRing = new THREE.TorusGeometry(0.35, 0.06, 8, 16);
+    const ringMat = new THREE.MeshStandardMaterial({ color: 0xffe270, metalness: 0.8, roughness: 0.25 });
+    const cRing1 = new THREE.Mesh(coinRing, ringMat);
+    cRing1.position.z = 0.07;
+    coinGroup.add(cRing1);
+    const cRing2 = cRing1.clone();
+    cRing2.position.z = -0.07;
+    coinGroup.add(cRing2);
+
+    trayGroup.add(coinGroup);
+
+    // Object 1: $51M+ Revenue Rocket
+    const rocketGroup = new THREE.Group();
+    const rBodyGeo = new THREE.CylinderGeometry(0.2, 0.2, 0.9, 16);
+    const rBodyMat = new THREE.MeshStandardMaterial({ color: 0xf7f2e5, roughness: 0.4 });
+    const rBody = new THREE.Mesh(rBodyGeo, rBodyMat);
+    rocketGroup.add(rBody);
+
+    const rNoseGeo = new THREE.ConeGeometry(0.2, 0.35, 16);
+    const rNoseMat = new THREE.MeshStandardMaterial({ color: 0xeb3322, roughness: 0.3 });
+    const rNose = new THREE.Mesh(rNoseGeo, rNoseMat);
+    rNose.position.y = 0.625;
+    rocketGroup.add(rNose);
+
+    const rFinGeo = new THREE.BoxGeometry(0.06, 0.25, 0.4);
+    const rFinMat = new THREE.MeshStandardMaterial({ color: 0xeb3322, roughness: 0.3 });
+    for (let i = 0; i < 3; i++) {
+      const fin = new THREE.Mesh(rFinGeo, rFinMat);
+      fin.position.y = -0.35;
+      fin.rotation.y = (Math.PI / 1.5) * i;
+      fin.position.x = Math.sin(fin.rotation.y) * 0.22;
+      fin.position.z = Math.cos(fin.rotation.y) * 0.22;
+      rocketGroup.add(fin);
+    }
+    rocketGroup.rotation.z = -0.3;
+    trayGroup.add(rocketGroup);
+
+    // Object 2: ₹50Cr+ Spends Magnifying Glass
+    const glassGroup = new THREE.Group();
+    const gFrameGeo = new THREE.TorusGeometry(0.45, 0.07, 12, 32);
+    const gFrameMat = new THREE.MeshStandardMaterial({ color: 0xffc619, metalness: 0.8, roughness: 0.2 });
+    const gFrame = new THREE.Mesh(gFrameGeo, gFrameMat);
+    glassGroup.add(gFrame);
+
+    const gLensGeo = new THREE.CylinderGeometry(0.45, 0.45, 0.02, 32);
+    const gLensMat = new THREE.MeshStandardMaterial({
+      color: 0x8df947,
+      transparent: true,
+      opacity: 0.35,
+      roughness: 0.1
+    });
+    const gLens = new THREE.Mesh(gLensGeo, gLensMat);
+    gLens.rotation.x = Math.PI / 2;
+    glassGroup.add(gLens);
+
+    const gHandleGeo = new THREE.CylinderGeometry(0.05, 0.05, 0.5, 16);
+    const gHandleMat = new THREE.MeshStandardMaterial({ color: 0x000000, roughness: 0.8 });
+    const gHandle = new THREE.Mesh(gHandleGeo, gHandleMat);
+    gHandle.position.y = -0.7;
+    gHandle.rotation.z = 0.5;
+    glassGroup.add(gHandle);
+    
+    glassGroup.rotation.z = -0.25;
+    trayGroup.add(glassGroup);
+
+    // Positioning slides values meshes above the tray
+    const objects3D = [coinGroup, rocketGroup, glassGroup];
+
+    const portalColors = ['#2097cf', '#eb3322', '#7721c7'];
+    const trayColors = [0x0a7bb0, 0xc22011, 0x5c1fa1];
+    const trayBorderColors = [0x065377, 0x8a1309, 0x411277];
+
+    function updateObjectTransitions(activeIdx) {
+      // Transition portal ring bg color in CSS/DOM
+      const frameEl = document.getElementById("portal-frame");
+      if (frameEl) {
+        frameEl.style.backgroundColor = portalColors[activeIdx];
+      }
+
+      // Transition tray mesh colors in Three.js
+      const tColorObj = new THREE.Color(trayColors[activeIdx]);
+      const bColorObj = new THREE.Color(trayBorderColors[activeIdx]);
+      gsap.to(trayMat.color, { r: tColorObj.r, g: tColorObj.g, b: tColorObj.b, duration: 0.85, ease: "power2.out" });
+      gsap.to(borderMat.color, { r: bColorObj.r, g: bColorObj.g, b: bColorObj.b, duration: 0.85, ease: "power2.out" });
+
+      objects3D.forEach((obj, idx) => {
+        const isActive = idx === activeIdx;
+        
+        if (isActive) {
+          obj.visible = true;
+          // Slide out towards the user (higher Y & Z, scaled up)
+          gsap.to(obj.position, {
+            x: 0,
+            y: 0.75, // Floats high above the tray
+            z: 0.35, // Moves forward towards the camera
+            duration: 0.95,
+            ease: "back.out(1.2)"
+          });
+          gsap.to(obj.scale, {
+            x: 1.45,
+            y: 1.45,
+            z: 1.45,
+            duration: 0.95,
+            ease: "back.out(1.2)"
+          });
+          gsap.to(obj.rotation, {
+            y: Math.PI * 2,
+            duration: 1.8,
+            ease: "power2.out"
+          });
+        } else {
+          // Slide in / disappear (sink deep back into portal/tray)
+          gsap.to(obj.position, {
+            x: idx < activeIdx ? -1.3 : 1.3,
+            y: 0.12, // rest close to tray surface
+            z: -0.4, // pushed back
+            duration: 0.85,
+            ease: "power3.inOut"
+          });
+          gsap.to(obj.scale, {
+            x: 0.55,
+            y: 0.55,
+            z: 0.55,
+            duration: 0.85,
+            ease: "power3.inOut",
+            onComplete: () => {
+              if (idx !== activeIdx) obj.visible = false;
+            }
+          });
+        }
+      });
+      
+      // Tilt the tray slightly on transition to give structural dynamics
+      gsap.to(trayGroup.rotation, {
+        y: 0.12 + (activeIdx - 1) * 0.1,
+        x: 0.42 - (activeIdx - 1) * 0.05,
+        duration: 0.85,
+        ease: "power2.out"
+      });
+    }
+
+    // Set initial positions
+    updateObjectTransitions(0);
+
+    /* ---------- SLIDER SWAPPING LOGIC ---------- */
+    let activeSlide = 0;
+    const stickerWrappers = document.querySelectorAll(".sticker-content-wrapper");
+    const slideCopies = document.querySelectorAll(".slide-copy");
+    const sliderDots = document.querySelectorAll(".slider-dot");
+    const prevBtn = document.getElementById("prev-btn");
+    const nextBtn = document.getElementById("next-btn");
+
+    function goToSlide(index) {
+      if (index === activeSlide) return;
+      
+      // Deactivate current
+      stickerWrappers[activeSlide].classList.remove("active");
+      slideCopies[activeSlide].classList.remove("active");
+      sliderDots[activeSlide].classList.remove("active");
+      
+      activeSlide = index;
+      
+      // Activate new
+      stickerWrappers[activeSlide].classList.add("active");
+      slideCopies[activeSlide].classList.add("active");
+      sliderDots[activeSlide].classList.add("active");
+      
+      updateObjectTransitions(activeSlide);
+      playSound('swell');
+    }
+
+    prevBtn.addEventListener("click", () => {
+      const idx = activeSlide === 0 ? 2 : activeSlide - 1;
+      goToSlide(idx);
+    });
+
+    nextBtn.addEventListener("click", () => {
+      const idx = activeSlide === 2 ? 0 : activeSlide + 1;
+      goToSlide(idx);
+    });
+
+    sliderDots.forEach((dot, index) => {
+      dot.addEventListener("click", () => goToSlide(index));
+    });
+
+    // Logo click reset trigger
+    document.getElementById("logo-trigger").addEventListener("click", () => {
+      playSound('swell');
+      goToSlide(0);
+    });
+
+
+    /* ---------- ANIMATION LOOP ---------- */
+    const clock = new THREE.Clock();
+
+    function animate() {
+      requestAnimationFrame(animate);
+      const dt = clock.getDelta();
+      const t = clock.getElapsedTime();
+
+      // Gentle float and rotate animations on the active 3D value item
+      const activeObj = objects3D[activeSlide];
+      if (activeObj && activeObj.visible) {
+        activeObj.position.y = 0.75 + Math.sin(t * 1.5) * 0.08; // Bobbing
+        activeObj.rotation.y += dt * 0.45; // Gentle rotation
+      }
+
+      // Render Three Scene
+      const w = canvas.clientWidth;
+      const h = canvas.clientHeight;
+      if (canvas.width !== w || canvas.height !== h) {
+        renderer.setSize(w, h, false);
+        camera.aspect = w / h;
+        camera.updateProjectionMatrix();
+      }
+      renderer.render(scene, camera);
+    }
+    animate();
+
+    // Mouse pointer parallax tilt on objects
+    window.addEventListener("pointermove", (e) => {
+      const x = (e.clientX / window.innerWidth) * 2 - 1;
+      const y = -(e.clientY / window.innerHeight) * 2 + 1;
+      
+      // Tilt the entire tray group slightly
+      gsap.to(trayGroup.rotation, {
+        y: (0.12 + (activeSlide - 1) * 0.1) + x * 0.12,
+        x: (0.42 - (activeSlide - 1) * 0.05) - y * 0.12,
+        duration: 0.6,
+        ease: "power1.out"
+      });
+    });
+
+    // Intro Entrance Animations
+    function introAnimation() {
+      gsap.from(".logo-container", {
+        scale: 0.5,
+        opacity: 0,
+        duration: 0.9,
+        ease: "back.out(1.8)"
+      });
+      
+      gsap.from(".header-nav-left a, .header-nav-right a, .sound-switcher-capsule", {
+        y: -30,
+        opacity: 0,
+        stagger: 0.08,
+        duration: 0.8,
+        ease: "back.out(1.5)",
+        delay: 0.2
+      });
+
+      gsap.from(".sticker-burst", {
+        scale: 0,
+        opacity: 0,
+        rotation: -45,
+        duration: 1,
+        ease: "back.out(1.4)",
+        delay: 0.4
+      });
+
+      gsap.from(".copy-title", {
+        x: 40,
+        opacity: 0,
+        duration: 0.8,
+        ease: "power3.out",
+        delay: 0.5
+      });
+
+      gsap.from(".copy-desc", {
+        y: 20,
+        opacity: 0,
+        duration: 0.8,
+        ease: "power3.out",
+        delay: 0.6
+      });
+
+      gsap.from(".slider-controls", {
+        scale: 0.8,
+        opacity: 0,
+        duration: 0.8,
+        ease: "back.out(1.5)",
+        delay: 0.7
+      });
+    }
+
+  </script>
+</body>
+</html>
