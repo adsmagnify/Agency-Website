@@ -22,8 +22,8 @@ const DEFAULTS = {
   speed: 95,
   boost: 130,
   fade: 95,
-  label: true,
-  labelText: "Hold to Accelerate ⚡",
+  label: false,
+  labelText: "",
   labelFill: "#004AAD",
   labelColor: "#FFFFFF",
   labelFont: { fontFamily: "var(--font-heading), sans-serif", fontSize: 13, fontWeight: 800 } as CSSProperties,
@@ -468,28 +468,13 @@ export default function GalleryTunnel(props: GalleryTunnelProps) {
       className={`relative w-full h-screen min-h-[700px] overflow-hidden select-none bg-[#FAF9F6] ${className}`}
       style={{
         ...style,
-        cursor: label ? "none" : "default",
+        cursor: "default",
       }}
     >
       <canvas
         ref={canvasRef}
         className="size-full block touch-none"
       />
-
-      {/* Floating Accelerator Pill */}
-      {label && (
-        <div
-          ref={cursorRef}
-          className="pointer-events-none absolute top-0 left-0 -translate-x-1/2 -translate-y-full opacity-0 rounded-full px-5 py-2.5 shadow-[0_10px_30px_rgba(0,74,173,0.3)] transition-[transform,opacity] duration-150 select-none z-30 uppercase tracking-widest flex items-center gap-2 border border-white/20"
-          style={{
-            background: labelFill,
-            color: labelColor,
-            ...labelFont,
-          }}
-        >
-          <span>{labelText}</span>
-        </div>
-      )}
     </div>
   );
 }
