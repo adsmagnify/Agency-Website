@@ -1,7 +1,7 @@
 .option-wheel {
   --ow-text-color: #94a3b8;
   --ow-active-color: #004aad;
-  --ow-font-size: 0.72rem;
+  --ow-font-size: 0.74rem;
   --ow-inset: 0px;
 
   position: relative;
@@ -12,20 +12,19 @@
   user-select: none;
   touch-action: none;
   outline: none;
-  contain: paint;
 }
 
 @media (min-width: 480px) {
   .option-wheel {
-    --ow-font-size: 0.82rem;
-    --ow-inset: 4px;
+    --ow-font-size: 0.84rem;
+    --ow-inset: 2px;
   }
 }
 
 @media (min-width: 640px) {
   .option-wheel {
     --ow-font-size: 1.05rem;
-    --ow-inset: 8px;
+    --ow-inset: 6px;
   }
 }
 

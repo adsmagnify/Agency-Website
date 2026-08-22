@@ -199,9 +199,9 @@ export default function HeroSection() {
       </div>
 
       {/* ------------------------------------------------------------- */}
-      {/* RESPONSIVE LUXURY HEADER (Mobile: Left Logo, Desktop: Center)  */}
+      {/* RESPONSIVE LUXURY HEADER (Balanced Padding, Zero Text Cutoff)  */}
       {/* ------------------------------------------------------------- */}
-      <header className="relative z-30 w-full px-4 sm:px-12 py-3 sm:py-5 flex items-center justify-between gap-2 sm:gap-4">
+      <header className="relative z-30 w-full px-5 sm:px-12 pt-3 sm:pt-4 pb-1 sm:pb-2 flex items-center justify-between gap-3 sm:gap-4">
         {/* Left Side: Desktop Audit CTA Button (Hidden on Mobile) */}
         <div className="hidden sm:flex items-center gap-3 w-1/4 justify-start">
           <a
@@ -220,20 +220,20 @@ export default function HeroSection() {
             <img
               src="/full_logo.svg"
               alt="AdsMagnify"
-              className="h-6 xs:h-7 sm:h-11 md:h-13 w-auto object-contain transition-transform duration-300 group-hover:scale-105"
+              className="h-6 xs:h-7 sm:h-10 md:h-12 w-auto object-contain transition-transform duration-300 group-hover:scale-105"
             />
           </Link>
         </div>
 
-        {/* Right Side: Direct Interactive OptionWheel (Clean Bounds, Inward Curve) */}
+        {/* Right Side: OptionWheel with Generous Flexible Width (No Text Cutoff) */}
         <div className="flex items-center justify-end flex-1 sm:flex-initial sm:w-1/4">
-          <div className="relative w-[135px] xs:w-[155px] sm:w-[220px] md:w-[260px] h-[52px] sm:h-[80px] flex items-center justify-end overflow-hidden">
+          <div className="relative w-full max-w-[210px] sm:max-w-[260px] h-[52px] sm:h-[75px] flex items-center justify-end overflow-hidden">
             <OptionWheel
               items={["Why Us", "How We Work", "Case Studies", "Contact"]}
               side="right"
               spacing={1.3}
-              tilt={6}
-              curve={0.9}
+              tilt={5.5}
+              curve={0.85}
               textColor="#94a3b8"
               activeColor="#004AAD"
               loop={false}
@@ -256,12 +256,12 @@ export default function HeroSection() {
       {/* ------------------------------------------------------------- */}
       {/* HERO HEADLINE, DESCRIPTIVE COPY & CTAS                         */}
       {/* ------------------------------------------------------------- */}
-      <div className="relative z-20 w-full px-3 sm:px-6 max-w-4xl mx-auto text-center flex flex-col items-center pt-2 sm:pt-4 pb-2">
+      <div className="relative z-20 w-full px-4 sm:px-6 max-w-4xl mx-auto text-center flex flex-col items-center pt-3 sm:pt-5 md:pt-6 pb-2 sm:pb-3">
         
-        {/* Interactive Magnifying Glass Lens with Responsive Headline */}
+        {/* Interactive Magnifying Glass Lens with Calibrated Desktop Scale */}
         <Lens lensSize={190} maxStretch={1.38} radius={120} className="w-full">
           <h1
-            className="font-serif text-[1.95rem] xs:text-[2.35rem] sm:text-4xl md:text-5xl lg:text-[4.6rem] font-normal leading-[1.15] sm:leading-[1.18] tracking-tight text-[#0A1A3A] max-w-[22ch] mx-auto py-1 sm:py-2"
+            className="font-serif text-[2.2rem] xs:text-[2.6rem] sm:text-4xl md:text-5xl lg:text-[4.2rem] font-normal leading-[1.14] sm:leading-[1.16] tracking-tight text-[#0A1A3A] max-w-[22ch] mx-auto py-1 sm:py-2"
             style={{ perspective: "1000px" }}
           >
             {headlineWords.map((word, wIdx) => {
@@ -271,11 +271,11 @@ export default function HeroSection() {
                 return (
                   <span
                     key={wIdx}
-                    className="inline-block relative mx-1 sm:mx-2 px-1 sm:px-2 py-0.5 align-baseline tracking-[0.02em]"
+                    className="inline-block relative mx-1.5 sm:mx-2 px-1.5 sm:px-2 py-0.5 align-baseline tracking-[0.02em]"
                     style={{ transformStyle: "preserve-3d" }}
                   >
                     {/* Glowing Accent Letters */}
-                    <span className="hero-accent-text italic font-normal text-[#004AAD] inline-block pr-1.5 sm:pr-3 relative z-10 drop-shadow-[0_2px_12px_rgba(0,74,173,0.18)]">
+                    <span className="hero-accent-text italic font-normal text-[#004AAD] inline-block pr-2 sm:pr-3 relative z-10 drop-shadow-[0_2px_12px_rgba(0,74,173,0.18)]">
                       {chars.map((char, cIdx) => (
                         <span
                           key={cIdx}
@@ -291,7 +291,7 @@ export default function HeroSection() {
                     </span>
 
                     {/* Sparkle 1: Top Right Gold Star */}
-                    <span className="sparkle-item sparkle-1 pointer-events-none absolute -top-3 -right-3 text-[#FFC619] text-sm sm:text-xl select-none z-20">
+                    <span className="sparkle-item sparkle-1 pointer-events-none absolute -top-3 -right-3 text-[#FFC619] text-base sm:text-xl select-none z-20">
                       ✦
                     </span>
 
@@ -314,7 +314,7 @@ export default function HeroSection() {
               return (
                 <span
                   key={wIdx}
-                  className="inline-block mx-1 sm:mx-2 whitespace-nowrap tracking-[0.02em]"
+                  className="inline-block mx-1.5 sm:mx-2 whitespace-nowrap tracking-[0.02em]"
                 >
                   {chars.map((char, cIdx) => (
                     <span
@@ -334,18 +334,18 @@ export default function HeroSection() {
           </h1>
         </Lens>
 
-        {/* Detailed Value Proposition Subtext (Zero Margin Overflow) */}
-        <p className="hero-desc mt-3 sm:mt-4 max-w-[56ch] text-[12.5px] sm:text-sm md:text-base text-slate-600 font-normal leading-relaxed px-2 sm:px-0">
+        {/* Detailed Value Proposition Subtext */}
+        <p className="hero-desc mt-3 sm:mt-4 max-w-[56ch] text-[13px] sm:text-sm md:text-[15px] text-slate-600 font-normal leading-relaxed px-2 sm:px-0">
           Adsmagnify is a performance marketing agency for ambitious brands—performance marketing, search engine optimization, website development, CRM development with AI integration, and generative AI with UGC & TVC ads, built to scale profitably.
         </p>
 
         {/* Rock-Solid Stable CTA Buttons */}
-        <div className="hero-ctas mt-4 sm:mt-6 flex flex-wrap items-center justify-center gap-3 sm:gap-4 w-full px-2">
+        <div className="hero-ctas mt-4 sm:mt-5 flex flex-wrap items-center justify-center gap-3 sm:gap-4 w-full px-2">
           <MagneticButton strength={0.18}>
             <a
               href="mailto:adsmagnify@gmail.com"
               data-cursor-text="AUDIT"
-              className="inline-flex items-center gap-2 rounded-full bg-[#004AAD] hover:bg-[#003B8A] text-white px-5 sm:px-7 py-2.5 sm:py-3 text-xs font-black uppercase tracking-[0.15em] shadow-md shadow-[#004AAD]/20 transition-colors duration-200"
+              className="inline-flex items-center gap-2 rounded-full bg-[#004AAD] hover:bg-[#003B8A] text-white px-6 sm:px-7 py-2.5 sm:py-3 text-xs font-black uppercase tracking-[0.15em] shadow-md shadow-[#004AAD]/20 transition-colors duration-200"
             >
               <span>Get a Free Growth Audit</span>
               <span className="inline-block transition-transform duration-200 group-hover:translate-x-1">→</span>
@@ -355,7 +355,7 @@ export default function HeroSection() {
           <MagneticButton strength={0.18}>
             <a
               href="#about"
-              className="inline-flex items-center gap-2 rounded-full border border-slate-300 bg-white hover:bg-slate-50 text-slate-800 px-5 sm:px-7 py-2.5 sm:py-3 text-xs font-bold uppercase tracking-[0.12em] transition-colors duration-200 shadow-xs"
+              className="inline-flex items-center gap-2 rounded-full border border-slate-300 bg-white hover:bg-slate-50 text-slate-800 px-6 sm:px-7 py-2.5 sm:py-3 text-xs font-bold uppercase tracking-[0.12em] transition-colors duration-200 shadow-xs"
             >
               <span>See Our Results</span>
               <span>↗</span>
@@ -366,10 +366,10 @@ export default function HeroSection() {
       </div>
 
       {/* ------------------------------------------------------------- */}
-      {/* 3D GLOBE CLIENT NETWORK (Full Globe in DOM, Flows on Scroll)  */}
+      {/* 3D GLOBE CLIENT NETWORK (Desktop: Top Arc Peeks Before Scroll) */}
       {/* ------------------------------------------------------------- */}
-      <div className="hero-globe relative z-20 w-full flex flex-col items-center justify-center pt-2 sm:pt-4 pb-8 sm:pb-12 px-2 sm:px-4">
-        <p className="text-[11px] sm:text-[13px] font-normal tracking-wide text-slate-500 mb-2 sm:mb-3 text-center px-4 max-w-lg">
+      <div className="hero-globe relative z-20 w-full flex flex-col items-center justify-center pt-2 sm:pt-3 pb-8 sm:pb-12 px-4">
+        <p className="text-xs sm:text-[13px] font-normal tracking-wide text-slate-500 mb-1.5 sm:mb-2 text-center px-4 max-w-lg">
           Managing active growth campaigns across <span className="text-[#0A1A3A] font-semibold">Mumbai</span>, <span className="text-[#0A1A3A] font-semibold">Dubai</span>, <span className="text-[#0A1A3A] font-semibold">London</span>, <span className="text-[#0A1A3A] font-semibold">New York</span> & beyond
         </p>
 

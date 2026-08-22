@@ -63,9 +63,9 @@ export const OptionWheel = ({
   side = "right",
   fontSize,
   spacing = 1.3,
-  curve = 0.9,
-  tilt = 6,
-  blur = 0.8,
+  curve = 0.85,
+  tilt = 5.5,
+  blur = 0.6,
   fade = 0.35,
   minOpacity = 0.15,
   smoothing = 160,
@@ -95,31 +95,48 @@ export const OptionWheel = ({
   const [selectedIndex, setSelectedIndex] = useState(defaultSelected);
   const [isDragging, setIsDragging] = useState(false);
 
+  const getDynamicFontSize = useCallback(() => {
+    if (fontSize != null) return fontSize;
+    if (typeof window === "undefined") return 1.0;
+    if (window.innerWidth < 480) return 0.74;
+    if (window.innerWidth < 640) return 0.82;
+    return 1.05;
+  }, [fontSize]);
+
   const remPx =
     typeof window !== "undefined"
       ? parseFloat(getComputedStyle(document.documentElement).fontSize) || 16
       : 16;
 
-  const effectiveFontSize = fontSize ?? 1.0;
+  const updateConfig = useCallback(() => {
+    const dynamicSize = getDynamicFontSize();
+    cfgRef.current = {
+      count: items.length,
+      items,
+      rowH: Math.max(dynamicSize * spacing * remPx, 1),
+      curve,
+      tilt,
+      blur,
+      fade,
+      minOpacity,
+      side,
+      loop,
+      smoothing,
+      draggable,
+      soundUrl,
+      soundVolume,
+    };
+  }, [items, spacing, remPx, curve, tilt, blur, fade, minOpacity, side, loop, smoothing, draggable, soundUrl, soundVolume, getDynamicFontSize]);
+
+  useEffect(() => {
+    updateConfig();
+    const handleResize = () => updateConfig();
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, [updateConfig]);
 
   onChangeRef.current = onChange;
   onSelectRef.current = onSelect;
-  cfgRef.current = {
-    count: items.length,
-    items,
-    rowH: Math.max(effectiveFontSize * spacing * remPx, 1),
-    curve,
-    tilt,
-    blur,
-    fade,
-    minOpacity,
-    side,
-    loop,
-    smoothing,
-    draggable,
-    soundUrl,
-    soundVolume,
-  };
 
   const runFrame = useCallback((now: number) => {
     const dt = Math.min((now - lastRef.current) / 1000, 0.05);
