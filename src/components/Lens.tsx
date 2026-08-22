@@ -14,33 +14,79 @@ export interface LensProps {
 
 export function Lens({
   children,
-  lensSize = 190,
+  lensSize = 180,
   maxStretch = 1.38,
-  radius = 120,
+  radius = 110,
   className = "",
   ariaLabel = "Zoom Area",
 }: LensProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const lensRef = useRef<HTMLDivElement>(null);
-  const [isHovering, setIsHovering] = useState(false);
-  const mousePosRef = useRef({ x: -999, y: -999 });
+  const [isActive, setIsActive] = useState(false);
+  const posRef = useRef({ x: -999, y: -999 });
   const lastPosRef = useRef({ x: -999, y: -999 });
+  const isInteractingRef = useRef(false);
 
+  // Desktop Mouse Handlers
   const handleMouseMove = useCallback((e: React.MouseEvent<HTMLDivElement>) => {
     if (!containerRef.current) return;
     const rect = containerRef.current.getBoundingClientRect();
-    mousePosRef.current = {
+    posRef.current = {
       x: e.clientX - rect.left,
       y: e.clientY - rect.top,
     };
   }, []);
 
-  const handleMouseEnter = useCallback(() => setIsHovering(true), []);
-  const handleMouseLeave = useCallback(() => {
-    setIsHovering(false);
-    mousePosRef.current = { x: -999, y: -999 };
+  const handleMouseEnter = useCallback(() => {
+    setIsActive(true);
+    isInteractingRef.current = true;
+  }, []);
 
-    // Reset all characters width, stroke & letter spacing on leave
+  const handleMouseLeave = useCallback(() => {
+    setIsActive(false);
+    isInteractingRef.current = false;
+    posRef.current = { x: -999, y: -999 };
+
+    if (containerRef.current) {
+      const chars = containerRef.current.querySelectorAll<HTMLElement>(".proxi-char");
+      chars.forEach((char) => {
+        char.style.transform = "scaleX(1) scaleY(1)";
+        char.style.webkitTextStroke = "0px";
+        char.style.paddingLeft = "0px";
+        char.style.paddingRight = "0px";
+        char.style.letterSpacing = "normal";
+      });
+    }
+  }, []);
+
+  // Mobile Touch Handlers
+  const handleTouchStart = useCallback((e: React.TouchEvent<HTMLDivElement>) => {
+    if (!containerRef.current || e.touches.length === 0) return;
+    setIsActive(true);
+    isInteractingRef.current = true;
+    const rect = containerRef.current.getBoundingClientRect();
+    const touch = e.touches[0];
+    posRef.current = {
+      x: touch.clientX - rect.left,
+      y: touch.clientY - rect.top,
+    };
+  }, []);
+
+  const handleTouchMove = useCallback((e: React.TouchEvent<HTMLDivElement>) => {
+    if (!containerRef.current || e.touches.length === 0) return;
+    const rect = containerRef.current.getBoundingClientRect();
+    const touch = e.touches[0];
+    posRef.current = {
+      x: touch.clientX - rect.left,
+      y: touch.clientY - rect.top,
+    };
+  }, []);
+
+  const handleTouchEnd = useCallback(() => {
+    setIsActive(false);
+    isInteractingRef.current = false;
+    posRef.current = { x: -999, y: -999 };
+
     if (containerRef.current) {
       const chars = containerRef.current.querySelectorAll<HTMLElement>(".proxi-char");
       chars.forEach((char) => {
@@ -62,13 +108,16 @@ export function Lens({
       const lensEl = lensRef.current;
       if (!container) return;
 
-      const { x, y } = mousePosRef.current;
+      const { x, y } = posRef.current;
 
-      // Update magnifying glass ring position
+      // Update magnifying glass optical lens position (responsive size)
       if (lensEl) {
-        if (x > -100 && y > -100 && isHovering) {
+        const isMobile = window.innerWidth < 640;
+        const activeLensSize = isMobile ? Math.min(lensSize, 140) : lensSize;
+
+        if (x > -100 && y > -100 && isInteractingRef.current) {
           lensEl.style.opacity = "1";
-          lensEl.style.transform = `translate3d(${x - lensSize / 2}px, ${y - lensSize / 2}px, 0)`;
+          lensEl.style.transform = `translate3d(${x - activeLensSize / 2}px, ${y - activeLensSize / 2}px, 0)`;
         } else {
           lensEl.style.opacity = "0";
         }
@@ -86,8 +135,9 @@ export function Lens({
         const charCenterY = charRect.top + charRect.height / 2 - containerRect.top;
 
         const dist = Math.sqrt((x - charCenterX) ** 2 + (y - charCenterY) ** 2);
+        const effectiveRadius = window.innerWidth < 640 ? radius * 0.85 : radius;
 
-        if (dist >= radius || x < -100) {
+        if (dist >= effectiveRadius || x < -100 || !isInteractingRef.current) {
           char.style.transform = "scaleX(1) scaleY(1)";
           char.style.webkitTextStroke = "0px";
           char.style.paddingLeft = "0px";
@@ -95,7 +145,7 @@ export function Lens({
           char.style.letterSpacing = "normal";
         } else {
           // Spherical cosine falloff for organic variable width expansion + dynamic letter spacing
-          const norm = Math.cos((dist / radius) * (Math.PI / 2));
+          const norm = Math.cos((dist / effectiveRadius) * (Math.PI / 2));
           const scaleX = 1 + (maxStretch - 1) * norm;
           const strokeWidth = (norm * 0.65).toFixed(2);
           const spacingPx = (norm * 3.5).toFixed(1);
@@ -111,38 +161,40 @@ export function Lens({
 
     frameId = requestAnimationFrame(loop);
     return () => cancelAnimationFrame(frameId);
-  }, [radius, maxStretch, lensSize, isHovering]);
+  }, [radius, maxStretch, lensSize]);
 
   return (
     <div
       ref={containerRef}
       data-cursor-hidden="true"
       className={cn(
-        "relative z-20 overflow-visible select-none transition-all",
-        isHovering ? "cursor-none" : "cursor-default",
+        "relative z-20 overflow-visible select-none transition-all touch-pan-y",
+        isActive ? "cursor-none" : "cursor-default",
         className
       )}
       onMouseMove={handleMouseMove}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
+      onTouchStart={handleTouchStart}
+      onTouchMove={handleTouchMove}
+      onTouchEnd={handleTouchEnd}
+      onTouchCancel={handleTouchEnd}
       role="region"
       aria-label={ariaLabel}
     >
       {/* Base Text Content */}
       <div className="relative z-10">{children}</div>
 
-      {/* Optical Specular Magnifying Glass Lens Ring (Desktop Only, Hidden Initially) */}
+      {/* Optical Specular Magnifying Glass Lens Ring (Desktop & Touch Enabled) */}
       <div
         ref={lensRef}
-        className="hidden md:block pointer-events-none absolute top-0 left-0 rounded-full border-2 border-[#004AAD]/50 bg-[#004AAD]/[0.03] backdrop-blur-[0.5px] shadow-[0_12px_40px_rgba(0,74,173,0.22),inset_0_0_25px_rgba(76,163,255,0.25)] transition-opacity duration-150 will-change-transform z-30 opacity-0"
+        className="pointer-events-none absolute top-0 left-0 rounded-full border-2 border-[#004AAD]/50 bg-[#004AAD]/[0.03] backdrop-blur-[0.5px] shadow-[0_12px_40px_rgba(0,74,173,0.22),inset_0_0_25px_rgba(76,163,255,0.25)] transition-opacity duration-150 will-change-transform z-30 opacity-0 w-[140px] h-[140px] sm:w-[180px] sm:h-[180px]"
         style={{
-          width: `${lensSize}px`,
-          height: `${lensSize}px`,
           opacity: 0,
         }}
       >
         {/* Specular Highlight Arc */}
-        <div className="absolute top-2 left-4 h-5 w-12 rounded-full bg-white/40 blur-[1px] rotate-[-25deg]" />
+        <div className="absolute top-2 left-4 h-4 w-10 sm:h-5 sm:w-12 rounded-full bg-white/40 blur-[1px] rotate-[-25deg]" />
       </div>
     </div>
   );
