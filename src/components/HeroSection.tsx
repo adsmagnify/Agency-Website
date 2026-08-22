@@ -366,15 +366,14 @@ export default function HeroSection() {
       </div>
 
       {/* ------------------------------------------------------------- */}
-      {/* 3D GLOBE CLIENT NETWORK (Mobile: Horizon Arc Arc View)         */}
+      {/* 3D GLOBE CLIENT NETWORK (Full Globe in DOM, Flows on Scroll)  */}
       {/* ------------------------------------------------------------- */}
-      <div className="hero-globe relative z-20 w-full flex flex-col items-center justify-start overflow-hidden pt-1 pb-0 sm:pb-6 px-2 sm:px-4">
-        <p className="text-[11px] sm:text-[13px] font-normal tracking-wide text-slate-500 mb-1 text-center px-4 max-w-lg">
+      <div className="hero-globe relative z-20 w-full flex flex-col items-center justify-center pt-2 sm:pt-4 pb-8 sm:pb-12 px-2 sm:px-4">
+        <p className="text-[11px] sm:text-[13px] font-normal tracking-wide text-slate-500 mb-2 sm:mb-3 text-center px-4 max-w-lg">
           Managing active growth campaigns across <span className="text-[#0A1A3A] font-semibold">Mumbai</span>, <span className="text-[#0A1A3A] font-semibold">Dubai</span>, <span className="text-[#0A1A3A] font-semibold">London</span>, <span className="text-[#0A1A3A] font-semibold">New York</span> & beyond
         </p>
 
-        {/* Clean Horizon Viewport: Crops the bottom half on mobile to guarantee horizon arc */}
-        <div className="relative w-full max-w-[340px] xs:max-w-[380px] sm:max-w-4xl h-[210px] xs:h-[240px] sm:h-auto overflow-hidden flex items-start justify-center">
+        <div className="relative w-full max-w-4xl mx-auto flex items-center justify-center">
           <GlobeCarousel className="w-full" />
         </div>
       </div>
