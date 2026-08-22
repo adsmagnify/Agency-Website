@@ -17,10 +17,14 @@
   align-items: center;
   justify-content: center;
 
-  overflow: hidden;
   border: 2px solid var(--color-wrapper-border);
   border-radius: var(--rad);
   box-shadow: 0 0 12px rgba(255, 198, 25, 0.35), 0 4px 20px rgba(0, 74, 173, 0.25);
+
+  /* Absolute hardware-accelerated rounded clipping for mobile GPU layers */
+  overflow: hidden;
+  clip-path: inset(0 round var(--rad));
+  -webkit-clip-path: inset(0 round var(--rad));
 
   font-family: "Inter", var(--font-heading), sans-serif;
   font-size: 0.82rem;
