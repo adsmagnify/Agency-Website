@@ -8,6 +8,8 @@ import SpotlightCard from "./SpotlightCard";
 import MagneticButton from "./MagneticButton";
 import PlatformMarquee from "./PlatformMarquee";
 import DepthText from "./DepthText";
+import TextReveal3D from "./TextReveal3D";
+import ServicesScrollStack from "./ServicesScrollStack";
 
 if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger, SplitText);
@@ -89,26 +91,6 @@ export default function NextSection() {
     if (reduceMotion) return;
 
     const ctx = gsap.context(() => {
-      // 0. Proof Stats Staggered 3D Reveal
-      gsap.fromTo(
-        ".proof-stat-item",
-        { y: 35, opacity: 0, scale: 0.9, filter: "blur(6px)" },
-        {
-          y: 0,
-          opacity: 1,
-          scale: 1,
-          filter: "blur(0px)",
-          stagger: 0.15,
-          duration: 0.9,
-          ease: "back.out(1.4)",
-          scrollTrigger: {
-            trigger: ".proof-stats-strip",
-            start: "top 88%",
-            toggleActions: "play none none reverse",
-          },
-        }
-      );
-
       // 1. Headings Kinetic Scroll Reveal
       gsap.utils.toArray<HTMLElement>(".gsap-reveal-heading").forEach((el) => {
         gsap.fromTo(
@@ -217,7 +199,7 @@ export default function NextSection() {
       {/* ------------------------------------------------------------- */}
       {/* PROOF STATS SHOWCASE STRIP (3D DepthText: 300+ Brands, $51M+, ₹50Cr+) */}
       {/* ------------------------------------------------------------- */}
-      <section className="proof-stats-strip relative w-full bg-white border-b border-slate-200/80 py-10 sm:py-16 overflow-hidden shadow-xs">
+      <section className="proof-stats-strip relative w-full bg-white border-b border-slate-200/80 py-5 sm:py-7 overflow-hidden shadow-xs">
         <div className="mx-auto max-w-5xl px-6">
           <div className="grid grid-cols-1 sm:grid-cols-3 divide-y sm:divide-y-0 sm:divide-x divide-slate-200/80 gap-8 sm:gap-0 items-center">
             {PROOF_METRICS.map((item, idx) => (
@@ -252,9 +234,14 @@ export default function NextSection() {
       </section>
 
       {/* ------------------------------------------------------------- */}
+      {/* 3D REVEAL & SERVICES SCROLLSTACK (Unified on Same Page)       */}
+      {/* ------------------------------------------------------------- */}
+      <ServicesScrollStack />
+
+      {/* ------------------------------------------------------------- */}
       {/* ABOUT US & MODERN BENTO GRID                                  */}
       {/* ------------------------------------------------------------- */}
-      <section id="about" className="relative w-full bg-[#FAFCFF] px-6 py-20 sm:py-28 text-[#0A1A3A]">
+      <section id="about" className="relative w-full bg-[#FAFCFF] px-6 pt-8 sm:pt-12 pb-20 sm:pb-28 text-[#0A1A3A]">
         <div className="mx-auto max-w-5xl">
           
           {/* Top Pill & Editorial Headline */}

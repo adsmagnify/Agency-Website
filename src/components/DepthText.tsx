@@ -106,9 +106,11 @@ const DepthText = ({
           setTimeout(() => {
             setIsInView(true);
           }, delayMs);
+        } else {
+          setIsInView(false);
         }
       },
-      { threshold: 0.1 }
+      { threshold: 0.15 }
     );
 
     observer.observe(root);
