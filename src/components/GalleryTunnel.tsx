@@ -394,6 +394,7 @@ export default function GalleryTunnel(props: GalleryTunnelProps) {
     raf = requestAnimationFrame(animate);
 
     const onMove = (e: PointerEvent) => {
+      if (e.pointerType === "touch") return;
       const el = cursorRef.current;
       if (!el) return;
       const rect = frame.getBoundingClientRect();
@@ -402,7 +403,8 @@ export default function GalleryTunnel(props: GalleryTunnelProps) {
       el.style.left = `${(e.clientX - rect.left) * sx}px`;
       el.style.top = `${(e.clientY - rect.top) * sy}px`;
     };
-    const onEnter = () => {
+    const onEnter = (e: PointerEvent) => {
+      if (e.pointerType === "touch") return;
       const el = cursorRef.current;
       if (el) el.style.opacity = "1";
     };
@@ -414,7 +416,8 @@ export default function GalleryTunnel(props: GalleryTunnelProps) {
         el.style.transform = "translate(-50%, -100%) scale(1)";
       }
     };
-    const onDown = () => {
+    const onDown = (e: PointerEvent) => {
+      if (e.pointerType === "touch") return;
       pressed = true;
       const el = cursorRef.current;
       if (el) el.style.transform = "translate(-50%, -100%) scale(0.9)";
@@ -473,7 +476,7 @@ export default function GalleryTunnel(props: GalleryTunnelProps) {
     >
       <canvas
         ref={canvasRef}
-        className="size-full block touch-none"
+        className="size-full block touch-pan-y"
       />
 
       {/* Soft Radial Luminous Fog Sanctuary in the Center */}
